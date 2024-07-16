@@ -1,0 +1,142 @@
+﻿@model WebApplication5.Models.book
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ReaderClub</title>
+    <link rel="stylesheet" href="/bootstrap.min (2).css" />
+    <style>
+        body {
+            background-color: #FFF5E1; /* Coffee background */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #6F4E37; /* Coffee color for heading */
+        }
+
+        .form-control {
+            border-radius: 0;
+            border-color: #6F4E37;
+        }
+
+        .btn-primary {
+            background-color: #6F4E37;
+            border-color: #6F4E37;
+        }
+
+        .btn-primary:hover {
+            background-color: #A0522D;
+            border-color: #A0522D;
+        }
+
+        .text-danger {
+            color: #A0522D;
+        }
+
+        .form-group label {
+            color: #6F4E37;
+            font-weight: bold;
+        }
+
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .back-to-list {
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            background-color: #D2B48C;
+            border: none;
+            color: #6F4E37;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #A0522D;
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Book</h1>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" asp-controller="books" asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="title" class="control-label"></label>
+                        <input asp-for="title" class="form-control" />
+                        <span asp-validation-for="title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="info" class="control-label"></label>
+                        <input asp-for="info" class="form-control" />
+                        <span asp-validation-for="info" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="bookquantity" class="control-label"></label>
+                        <input asp-for="bookquantity" class="form-control" />
+                        <span asp-validation-for="bookquantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="price" class="control-label"></label>
+                        <input asp-for="price" class="form-control" />
+                        <span asp-validation-for="price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="author" class="control-label"></label>
+                        <input asp-for="author" class="form-control" />
+                        <span asp-validation-for="author" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Pic</label>
+                        <input type="file" class="form-control" name="file" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 img-container">
+                <img src="/images/png.png" alt="Sample image" class="img-fluid">
+            </div>
+        </div>
+        <div class="back-to-list">
+            <a asp-action="Index" class="btn-back">Back to List</a>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
+

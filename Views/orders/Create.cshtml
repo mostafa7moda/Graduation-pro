@@ -1,0 +1,192 @@
+﻿@model WebApplication5.Models.book
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Google Font -->
+    <link href="/bootstrap.min (2).css" rel="stylesheet">
+
+    <!-- FontAwesome JS-->
+    <script defer src="/detailsAssets/fontawesome/js/all.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap.min (1).css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #A0522D 0%, #FFE4B5 100%);
+            color: #ffffff;
+            padding: 50px 0;
+        }
+
+        .headline {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .subheadline {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #6a11cb;
+                border-color: #6a11cb;
+            }
+
+        .book-cover-holder {
+            position: relative;
+            text-align: center;
+        }
+
+        .book-cover {
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff6f61;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-quotes {
+            margin-top: 50px;
+        }
+
+        .source-profile {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+        }
+
+        .source-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .source-title {
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-7 pt-5 mb-5 align-self-center">
+                    <div class="promo pe-md-3 pe-lg-5">
+                        <h1 class="headline mb-3">
+                            @Html.DisplayFor(model => model.title)
+                        </h1>
+                        <div class="subheadline mb-4">
+                            <p style="height: 88px; overflow: hidden;">@Html.DisplayFor(model => model.info)</p>
+                        </div>
+                        <form method="post" asp-controller="Orders" asp-action="AddToCart" asp-route-bookId="@Model.Id">
+                            <div class="hero-quotes mt-5">
+                                <div id="quotes-carousel" class="quotes-carousel carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="8000">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <div class="source row gx-md-3 gy-3 gy-md-0 align-items-center">
+                                                <div class="col-12 col-md-auto text-center text-md-start">
+                                                    <img class="source-profile" src="/detailsAssets/images/profiles/profile-1.png" alt="image">
+                                                </div>
+                                                <div class="col source-info text-center text-md-start">
+                                                    <div class="source-name">Author</div>
+                                                    <div class="source-title">@Html.DisplayFor(model => model.author)</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>
+                                <span style="font-size: 28px; font-weight: bold;">Price: </span><span style="font-size: 28px; font-weight: bold;">@Html.DisplayFor(model => model.price)$</span>
+                            </p>
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 mb-5 align-self-center">
+                    <div class="book-cover-holder">
+                        <img class="img-fluid book-cover" src="~/images/@Model.imgfile" alt="book cover">
+                        <div class="book-badge d-inline-block shadow">
+                            New<br>Release
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Javascript -->
+    <script src="/detailsAssets/plugins/popper.min.js"></script>
+    <script src="/detailsAssets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/detailsAssets/plugins/smoothscroll.min.js"></script>
+    <script src="/detailsAssets/js/main.js"></script>
+</body>
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+

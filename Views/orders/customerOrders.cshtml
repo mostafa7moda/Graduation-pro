@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApplication5.Models.orders>
+
+@{
+    ViewData["Title"] = "customerOrders";
+}
+
+<h1>customerOrders</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                hhhh
+                @Html.DisplayNameFor(model => model.bookId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.orderdate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderdate)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

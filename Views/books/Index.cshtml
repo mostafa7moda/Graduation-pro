@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication5.Models.book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Available Books </h1>
+
+<p>
+    <a asp-action="Create">Add New Book</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imgfile)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.cataid)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imgfile)
+            </td>
+            <td>
+              <a asp-action="Edit" asp-route-id="@item.Id"
+              style="background-color: #DAA520; border: none; color: #eee; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight:bold; transition: background-color 0.3s ease;">Edit</a> |
+              <a asp-action="Details" asp-route-id="@item.Id"
+                       style="background-color: #006400; border: none; color: #eee; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 12px;font-weight:bold; transition: background-color 0.3s ease;">Details</a> |
+              <a asp-action="Delete" asp-route-id="@item.Id"
+                       style="background-color: #B22222; border: none; color: #eee; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 12px;font-weight:bold; transition: background-color 0.3s ease;">Delete</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

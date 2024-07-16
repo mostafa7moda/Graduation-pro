@@ -1,0 +1,208 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Checkout</h1>
+
+@if (Model.Items.Count > 0)
+{
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Checkout Page</title>
+        <style>
+            .payment-info {
+                background: navy;
+                padding: 10px;
+                border-radius: 6px;
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .product-details {
+                padding: 10px;
+            }
+
+            body {
+                background: #eee;
+            }
+
+            .cart {
+                background: #fff;
+            }
+
+            .p-about {
+                font-size: 12px;
+            }
+
+            .table-shadow {
+                -webkit-box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+                box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+            }
+
+            .type {
+                font-weight: 400;
+                font-size: 10px;
+            }
+
+            label.radio {
+                cursor: pointer;
+            }
+
+                label.radio input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    visibility: hidden;
+                    pointer-events: none;
+                }
+
+                label.radio span {
+                    padding: 1px 12px;
+                    border: 2px solid #ada9a9;
+                    display: inline-block;
+                    color: #8f37aa;
+                    border-radius: 3px;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    font-weight: 300;
+                }
+
+                label.radio input:checked + span {
+                    border-color: #fff;
+                    background-color: blue;
+                    color: #fff;
+                }
+
+            .credit-inputs {
+                background: rgb(102,102,221);
+                color: #fff !important;
+                border-color: rgb(102,102,221);
+            }
+
+                .credit-inputs::placeholder {
+                    color: #fff;
+                    font-size: 13px;
+                }
+
+            .credit-card-label {
+                font-size: 9px;
+                font-weight: 300;
+            }
+
+            .form-control.credit-inputs:focus {
+                background: rgb(102,102,221);
+                border: rgb(102,102,221);
+            }
+
+            .line {
+                border-bottom: 1px solid rgb(102,102,221);
+            }
+
+            .information span {
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .information {
+                margin-bottom: 5px;
+            }
+
+            .items {
+                -webkit-box-shadow: 5px 5px 4px -1px rgba(0,0,0,0.25);
+                box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08);
+            }
+
+            .spec {
+                font-size: 11px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5 p-3 rounded cart">
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    <div class="product-details mr-2">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="d-flex justify-content-between align-items-center mt-3 items">
+                                <div class="d-flex flex-row">
+                                    <img class="rounded" src="~/images/@item.Book.imgfile" width="110">
+                                    <div class="d-flex flex-column ml-2">
+                                        <span class="font-weight-bold">@item.Book.title</span>
+                                        <p class="p-about">@item.Book.info</p>
+                                        <p class="Category">Author: @item.Book.author</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <span class="font-weight-bold">$@item.Price</span>
+                                    <i class="fa fa-trash ml-2"></i>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="payment-info table-shadow">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Payment Information</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-row align-items-center mb-3">
+                            <label class="radio">
+                                <input type="radio" name="payment" value="credit" checked>
+                                <span>Credit Card</span>
+                            </label>
+                            <label class="radio ml-2">
+                                <input type="radio" name="payment" value="paypal">
+                                <span>Paypal</span>
+                            </label>
+                        </div>
+                        <input type="text" class="form-control credit-inputs" placeholder="Cardholder Name">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control credit-inputs" placeholder="Card Number">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control credit-inputs" placeholder="CVV">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row mt-3 mb-3">
+                            <span class="credit-card-label">Valid Thru</span>
+                        </div>
+                        <input type="text" class="form-control credit-inputs" placeholder="MM/YY">
+                        <div class="d-flex flex-column align-items-center information">
+                            <span>Order Summary</span>
+                            <div class="line"></div>
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <span>@item.Book.title</span>
+                                    <span>@item.Book.price</span>
+                                </div>
+                            }
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center information">
+                            <span>Total</span>
+                            <span>@Model.Total</span>
+                        </div>
+                        <form action="/checkout/process" method="post">
+                            <!-- Add any additional form fields you need here -->
+                            <button class="btn btn-primary btn-block mt-4" type="submit">Confirm Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+}
+else
+{
+    <div class="text-center">
+        <p>Your cart is empty.</p>
+    </div>
+}

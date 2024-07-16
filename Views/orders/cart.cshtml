@@ -1,0 +1,234 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            background: #FFF; /* White background for the body */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #F5F5DC; /* Beige background for the container */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-header {
+            font-size: 24px;
+            color: #8B4513; /* Brown color for header */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-details {
+            background: #FFF; /* White background for product details */
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #D2B48C; /* Tan border for product details */
+        }
+
+            .product-details img {
+                border-radius: 6px;
+            }
+
+            .product-details .details {
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+            }
+
+            .product-details span {
+                color: #6F4E37; /* Coffee color for book title */
+                font-weight: bold;
+            }
+
+            .product-details .p-about, .product-details .Category {
+                color: #8B4513; /* Brown color for additional text */
+            }
+
+            .product-details .price-trash {
+                display: flex;
+                align-items: center;
+            }
+
+                .product-details .price-trash span {
+                    color: #6F4E37; /* Coffee color for price */
+                    margin-right: 10px;
+                    font-weight: bold;
+                }
+
+                .product-details .price-trash i {
+                    color: #8B4513; /* Brown color for trash icon */
+                    cursor: pointer;
+                }
+
+        .payment-info {
+            background: #D2B48C; /* Tan color for payment info background */
+            padding: 20px;
+            border-radius: 10px;
+            color: #6F4E37; /* Coffee color for text */
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .payment-info span {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .payment-info .form-control {
+                background: #FFF; /* White background for input fields */
+                color: #6F4E37; /* Coffee color for input text */
+                border: 1px solid #6F4E37; /* Coffee border for input fields */
+                margin-bottom: 10px;
+            }
+
+                .payment-info .form-control::placeholder {
+                    color: #6F4E37; /* Coffee color for placeholders */
+                }
+
+            .payment-info .information {
+                margin-bottom: 10px;
+            }
+
+                .payment-info .information span {
+                    color: #6F4E37; /* Coffee color for order summary text */
+                }
+
+        .btn-primary {
+            background: #6F4E37; /* Coffee color for button */
+            border: none;
+            color: #FFF;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .btn-primary:hover {
+                background: #8B4513; /* Darker brown color for hover state */
+            }
+
+        .empty-cart {
+            text-align: center;
+            color: #6F4E37; /* Coffee color for empty cart message */
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .radio {
+            margin-right: 10px;
+            color: #6F4E37; /* Coffee color for radio labels */
+        }
+
+        .line {
+            border-bottom: 1px solid #6F4E37; /* Coffee color for line */
+            margin: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="cart-header">Shopping Cart</h1>
+
+        @if (Model.Items.Count > 0)
+        {
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="product-details">
+                            <div class="d-flex">
+                                <img class="rounded" src="~/images/@item.Book.imgfile" width="110">
+                                <div class="details">
+                                    <span>@item.Book.title</span>
+                                    <p class="p-about">@item.Book.info</p>
+                                    <p class="Category">Author: @item.Book.author</p>
+                                </div>
+                            </div>
+                            <div class="price-trash">
+                                <span>$@item.Price</span>
+                                <a  asp-action="" ><i class="fa fa-trash ml-2"></i></a>
+                            </div>
+                        </div>
+                        <hr>
+                    }
+                </div>
+                <div class="col-md-4">
+                    <div class="payment-info">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Payment Information</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-row align-items-center mb-3">
+                            <label class="radio">
+                                <input type="radio" name="payment" value="credit" checked>
+                                <span>Credit Card</span>
+                            </label>
+                            <label class="radio ml-2">
+                                <input type="radio" name="payment" value="paypal">
+                                <span>Paypal</span>
+                            </label>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Cardholder Name">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Card Number">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="CVV">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row mt-3 mb-3">
+                            <span>Valid Thru</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="MM/YY">
+                        <div class="d-flex flex-column align-items-center information">
+                            <span>Order Summary</span>
+                            <div class="line"></div>
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <span>@item.Book.title</span> ::
+                                    <span>@item.Book.price</span>
+                                </div>
+                            }
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center information">
+                            <span>Total</span>
+                            <span>@Model.Total</span>
+                        </div>
+                        <form asp-controller="orders" asp-action="Create" method="post">
+                            <button class="btn btn-primary mt-4" type="submit">Checkout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="empty-cart">
+                <p>Your cart is empty.</p>
+            </div>
+        }
+    </div>
+</body>
+</html>
